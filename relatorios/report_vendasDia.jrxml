@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20"
+              rightMargin="20" topMargin="20" bottomMargin="20" uuid="aa1d7fe8-9967-4f68-ae14-461b98be4573">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <queryString language="SQL">
+        <![CDATA[SELECT
+     Transacao.`data` AS data,
+     Transacao.`hora` AS hora,
+     Transacao.`valor` AS valor,
+     Transacao.`desconto` AS desconto,
+     Transacao.`valor_final` AS valorFinal
+FROM
+     `Transacao` Transacao]]>
+    </queryString>
+    <field name="data" class="java.sql.Date">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="hora" class="java.sql.Time">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="valor" class="java.lang.Double">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="desconto" class="java.lang.Double">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="valorFinal" class="java.lang.Double"/>
+    <field name="loja" class="java.lang.String"/>
+    <field name="endereco" class="java.lang.String"/>
+    <field name="titulo" class="java.lang.String"/>
+    <variable name="totalVendas" class="java.lang.Integer" calculation="Count">
+        <variableExpression><![CDATA[$F{valor}]]></variableExpression>
+        <initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+    </variable>
+    <variable name="totalV" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[$F{valor}]]></variableExpression>
+        <initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+    </variable>
+    <variable name="totalDesc" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[$F{desconto}]]></variableExpression>
+        <initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+    </variable>
+    <variable name="totalFinal" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[$F{valorFinal}]]></variableExpression>
+        <initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+    </variable>
+    <background>
+        <band/>
+    </background>
+    <title>
+        <band height="76">
+            <frame>
+                <reportElement mode="Opaque" x="-20" y="-19" width="595" height="92" backcolor="#FEFEFE"
+                               uuid="9fbaa9e9-3724-48b0-b527-689c4e4d68d1"/>
+                <rectangle>
+                    <reportElement x="20" y="20" width="555" height="60" uuid="09d0e325-6ba7-45c1-8309-dc4e11f43f83"/>
+                    <graphicElement>
+                        <pen lineColor="#B1B1B1"/>
+                    </graphicElement>
+                </rectangle>
+                <line>
+                    <reportElement x="20" y="46" width="555" height="1" uuid="c3adca18-b296-4e8c-9672-112c09a816ad"/>
+                    <graphicElement>
+                        <pen lineWidth="1.75"/>
+                    </graphicElement>
+                </line>
+                <textField pattern="EEEEE dd MMMMM yyyy">
+                    <reportElement x="476" y="61" width="99" height="19" uuid="c328d180-5d9a-48f7-bcc2-3a2281a5b66c"/>
+                    <textElement verticalAlignment="Bottom">
+                        <font fontName="Times New Roman" size="12"/>
+                    </textElement>
+                    <textFieldExpression>
+                        <![CDATA[new java.text.SimpleDateFormat("dd/MMM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+                </textField>
+                <staticText>
+                    <reportElement x="395" y="61" width="81" height="19" uuid="b7337d5e-f4bd-4014-a8e5-8e6e0b2a914a"/>
+                    <textElement textAlignment="Right" verticalAlignment="Bottom">
+                        <font fontName="Times New Roman" size="12"/>
+                    </textElement>
+                    <text><![CDATA[Data:]]></text>
+                </staticText>
+                <textField>
+                    <reportElement x="20" y="20" width="375" height="27" uuid="aa613cee-0322-4b13-bce9-cf7435bfac34"/>
+                    <textElement verticalAlignment="Bottom">
+                        <font fontName="Times New Roman" size="16"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{loja}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="20" y="47" width="375" height="14" uuid="91b6d975-722b-47e7-bb60-e5dc3c65c173"/>
+                    <textElement>
+                        <font fontName="Times New Roman"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="20" y="61" width="375" height="20" uuid="fe58e13d-3deb-45c7-8f72-408460d1d0f5"/>
+                    <textElement verticalAlignment="Bottom">
+                        <font fontName="Times New Roman" size="12" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="4"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="21">
+            <line>
+                <reportElement x="-20" y="20" width="595" height="1" forecolor="#666666"
+                               uuid="551670f2-7798-4c00-8e20-6e3ab43b8744"/>
+            </line>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="1" width="111" height="20" forecolor="#010101" backcolor="#E6E6E6"
+                               uuid="99f1c529-7290-4166-927b-c0eebb6f09a2"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Hora]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="111" y="1" width="111" height="20" forecolor="#010101"
+                               backcolor="#E6E6E6" uuid="1ddd8ead-4f50-496d-aebb-6637b62f41c7"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Valor]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#010101"
+                               backcolor="#E6E6E6" uuid="623cc978-0cf2-4275-8c56-8b66b965a8fe"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Desconto]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="333" y="0" width="222" height="20" forecolor="#010101"
+                               backcolor="#E6E6E6" uuid="7b5a444a-8ff0-4e38-8ec7-2ad53ce4d9e2"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Valor Final]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"
+                               uuid="4ac382ae-ade3-4b26-aa63-15e7bb7027ee"/>
+            </line>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="0" y="0" width="111" height="20" uuid="29bfe410-193f-412b-991d-782785cdfa8d"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[$F{hora}==null?new java.text.SimpleDateFormat("HH:mm:ss").format(0):new java.text.SimpleDateFormat("HH:mm:ss").format($F{hora})]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="222" y="0" width="111" height="20" uuid="60496188-0c5c-4a02-9821-8343cf24b890"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[$F{desconto}==null?NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format(0):NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format($F{desconto})]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="333" y="0" width="111" height="20" uuid="dfcc148f-6edd-4dc9-b2f8-cf5a7f90d849"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format($F{valorFinal})]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="111" y="0" width="111" height="20" uuid="d652c99a-c9f1-4a9a-afd1-203326272e26"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format($F{valor})]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band/>
+    </columnFooter>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"
+                               uuid="68a52124-3e5d-443b-a69f-af3bb5264d11"/>
+                <textElement textAlignment="Right">
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"
+                               uuid="a7e2cbee-3271-4be9-bda3-2e33a010781d"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="111" height="20" forecolor="#010101"
+                               uuid="b7a45d65-9bc4-4806-aaf7-e8c382315034"/>
+                <textElement>
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Totais:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="111" y="0" width="111" height="20" forecolor="#010101"
+                               uuid="1d35ddc3-7c97-445c-af65-6e4f242fc061"/>
+                <textElement>
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format($V{totalV})]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="222" y="0" width="111" height="20" forecolor="#010101"
+                               uuid="0749d404-14c6-40d6-bfb0-13dfdcc13635"/>
+                <textElement>
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[$F{desconto}==null?NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format(0):NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format($V{totalDesc})]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="333" y="0" width="111" height="20" forecolor="#010101"
+                               uuid="3a894d9d-5459-4f1e-977e-08314ff7e325"/>
+                <textElement>
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[NumberFormat.getCurrencyInstance( new Locale( "pt", "MZ" )).format($V{totalFinal})]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="20" width="111" height="20" forecolor="#010101"
+                               uuid="b7ffaca3-b7a4-4d05-9d9c-26aef8d4cc13"/>
+                <textElement>
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Qtd. Vendas:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="111" y="20" width="111" height="20" forecolor="#010101"
+                               uuid="a3b063ab-5097-4b34-9095-ec4e95ec33b5"/>
+                <textElement>
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$V{totalVendas}]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>
