@@ -83,14 +83,14 @@ public class CaixaPane extends javax.swing.JPanel {
             btnAcrescentarDinheiro.setEnabled(false);
             btnRetirarDinheiro.setEnabled(false);
             btnCancelarTransacao.setEnabled(false);
-            btnCorrigir.setEnabled(false);
+           // btnCorrigir.setEnabled(false);
             btnTotal.setEnabled(false);
         } else {
             btnFechaAbrirCaixa.setText("Fechar Caixa");
             btnAcrescentarDinheiro.setEnabled(true);
             btnRetirarDinheiro.setEnabled(true);
             btnCancelarTransacao.setEnabled(true);
-            btnCorrigir.setEnabled(true);
+            //btnCorrigir.setEnabled(true);
             btnTotal.setEnabled(true);
         }
     }
@@ -154,7 +154,6 @@ public class CaixaPane extends javax.swing.JPanel {
         btnFechaAbrirCaixa = new javax.swing.JButton();
         btnTotal = new javax.swing.JButton();
         btnCancelarTransacao = new javax.swing.JButton();
-        btnCorrigir = new javax.swing.JButton();
         btnRetirarDinheiro = new javax.swing.JButton();
         btnAcrescentarDinheiro = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -191,7 +190,6 @@ public class CaixaPane extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
         btnDetalhes = new javax.swing.JButton();
-        btnActualizarCaixa = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCaixas = new org.jdesktop.swingx.JXTable();
@@ -239,18 +237,6 @@ public class CaixaPane extends javax.swing.JPanel {
             }
         });
         jToolBar1.add(btnCancelarTransacao);
-
-        btnCorrigir.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        btnCorrigir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bernardo/venda/imagens/Edit.png"))); // NOI18N
-        btnCorrigir.setText("Corrigir Transação");
-        btnCorrigir.setFocusable(false);
-        btnCorrigir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnCorrigir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCorrigirActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnCorrigir);
 
         btnRetirarDinheiro.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnRetirarDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bernardo/venda/imagens/Money-Delete.png"))); // NOI18N
@@ -328,14 +314,6 @@ public class CaixaPane extends javax.swing.JPanel {
         });
         jToolBar2.add(btnDetalhes);
 
-        btnActualizarCaixa.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        btnActualizarCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bernardo/venda/imagens/Edit.png"))); // NOI18N
-        btnActualizarCaixa.setText("Corrigir");
-        btnActualizarCaixa.setEnabled(false);
-        btnActualizarCaixa.setFocusable(false);
-        btnActualizarCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jToolBar2.add(btnActualizarCaixa);
-
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista dos Caixas Antecedentes"));
 
         tabelaCaixas.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -383,14 +361,14 @@ public class CaixaPane extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 929, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -416,10 +394,6 @@ public class CaixaPane extends javax.swing.JPanel {
         Transacao t = TabelaTransacao.getTransacaoAt(linha);
         cancelarTrancacao(t);
     }//GEN-LAST:event_btnCancelarTransacaoActionPerformed
-
-    private void btnCorrigirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrigirActionPerformed
-
-    }//GEN-LAST:event_btnCorrigirActionPerformed
 
     private void btnRetirarDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarDinheiroActionPerformed
         Window pai = SwingUtilities.getWindowAncestor(this);
@@ -454,7 +428,7 @@ public class CaixaPane extends javax.swing.JPanel {
             return;
         }
         btnDetalhes.setEnabled(true);
-        btnActualizarCaixa.setEnabled(true);
+       // btnActualizarCaixa.setEnabled(true);
         caixaSelecionado = TabelaCaixa.getCaixaAt(linha);
     }//GEN-LAST:event_tabelaCaixasMouseClicked
 
@@ -466,9 +440,7 @@ public class CaixaPane extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton btnAcrescentarDinheiro;
-    private javax.swing.JButton btnActualizarCaixa;
     private static javax.swing.JButton btnCancelarTransacao;
-    private static javax.swing.JButton btnCorrigir;
     private javax.swing.JButton btnDetalhes;
     private static javax.swing.JButton btnFechaAbrirCaixa;
     private static javax.swing.JButton btnRetirarDinheiro;
