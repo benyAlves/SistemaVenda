@@ -11,6 +11,7 @@ import bernardo.venda.controle.ProdutoControle;
 import bernardo.venda.pojo.Categoria;
 import bernardo.venda.pojo.Fornecedor;
 import bernardo.venda.pojo.Produto;
+import bernardo.venda.util.HighlightListener;
 import bernardo.venda.util.Icone;
 import bernardo.venda.util.Util;
 import bernardo.venda.util.ValidarCampo;
@@ -72,6 +73,10 @@ public class RegistoProdutoView extends javax.swing.JDialog {
     static void setCategoriaEscolhida(Categoria c) {
         cmbxCategoria.setSelectedItem(c.getDescricao());
     }
+    
+    static void setFornecedorEscolhido(Fornecedor c) {
+        cmbxFornecedor.setSelectedItem(c.getNome());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,24 +99,23 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         cmbxCategoria = new javax.swing.JComboBox<>();
         txtVCompra = new javax.swing.JTextField();
         txtValorVenda = new javax.swing.JTextField();
-        txtLucro = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jLabel14 = new javax.swing.JLabel();
+        lbLucro = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtEstoqueMin = new org.jdesktop.swingx.JXTextField();
         txtQActual = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservacao = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        txtEstoqueMax = new org.jdesktop.swingx.JXTextField();
         cmbxFornecedor = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         btnNovoForn = new javax.swing.JButton();
+        txtEstoqueMin = new javax.swing.JTextField();
+        txtEstoqueMax = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -121,6 +125,7 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -128,19 +133,24 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         jPanel5.setForeground(new java.awt.Color(57, 57, 57));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel7.setText("Nome/Descrição:");
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("<html><b><font color=red>*</font></b> Nome/Descrição:</html>");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel8.setText("Código de Barras:");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("<html><b><font color=red>*</font></b> Código de Barras:</html>");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel9.setText("Categoria:");
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel9.setText("<html><b><font color=red>*</font></b> Categoria:</html>");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel10.setText("Preço de Compra:");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("<html><b><font color=red>*</font></b> Preço de Compra:</html>");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel11.setText("Preço da Venda:");
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("<html><b><font color=red>*</font></b> Preço de Venda:</html>");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel12.setText("Margem de Lucro:");
@@ -148,11 +158,11 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         txtNomeDescricao.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         txtNomeDescricao.setPrompt("EX:NUTRIDAY FRUIT STRAWBERRY 600G");
         txtNomeDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNomeDescricaoKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNomeDescricaoKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeDescricaoKeyReleased(evt);
             }
         });
 
@@ -210,11 +220,6 @@ public class RegistoProdutoView extends javax.swing.JDialog {
             }
         });
 
-        txtLucro.setEditable(false);
-        txtLucro.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        txtLucro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtLucro.setToolTipText("Margem de Lucro");
-
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jButton5.setText("Nova");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -224,19 +229,19 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel6.setText("Unidade de Medida:");
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("<html><b><font color=red>*</font></b> Unidade de Medida:</html>");
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "UN", "KG", "LT", "LATA", "METRO", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "UN", "KG", "LT", "LATA", "METRO", "CAIXA", "EMBALAGEM", "COPO", " " }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel14.setText("0.00%");
+        lbLucro.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lbLucro.setText("0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -244,14 +249,12 @@ public class RegistoProdutoView extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel8))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -261,23 +264,21 @@ public class RegistoProdutoView extends javax.swing.JDialog {
                                 .addComponent(txtCodBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(txtVCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel6))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12)
                                         .addComponent(jLabel12)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, 0, 124, Short.MAX_VALUE)
-                                    .addComponent(txtLucro))))
+                                    .addComponent(jComboBox1, 0, 156, Short.MAX_VALUE)
+                                    .addComponent(lbLucro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(12, 12, 12)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtNomeDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -308,8 +309,7 @@ public class RegistoProdutoView extends javax.swing.JDialog {
                     .addComponent(jLabel11)
                     .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(txtLucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
+                    .addComponent(lbLucro))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -317,20 +317,12 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         jPanel4.setForeground(new java.awt.Color(57, 57, 57));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel1.setText("Estoque Min:");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("<html><b><font color=red>*</font></b> Estoque Min:</html>");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel2.setText("Estoque Actual:");
-
-        txtEstoqueMin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtEstoqueMin.setText("0");
-        txtEstoqueMin.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        txtEstoqueMin.setPrompt("");
-        txtEstoqueMin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtEstoqueMinKeyReleased(evt);
-            }
-        });
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("<html><b><font color=red>*</font></b> Estoque Actual:</html>");
 
         txtQActual.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         txtQActual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -362,16 +354,6 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel4.setText("Estoque Max:");
 
-        txtEstoqueMax.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtEstoqueMax.setText("0");
-        txtEstoqueMax.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        txtEstoqueMax.setPrompt("");
-        txtEstoqueMax.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtEstoqueMaxKeyReleased(evt);
-            }
-        });
-
         cmbxFornecedor.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         cmbxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbxFornecedor.addItemListener(new java.awt.event.ItemListener() {
@@ -396,51 +378,61 @@ public class RegistoProdutoView extends javax.swing.JDialog {
             }
         });
 
+        txtEstoqueMin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtEstoqueMin.setText("0");
+
+        txtEstoqueMax.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtEstoqueMax.setText("0");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQActual, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtEstoqueMin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEstoqueMax, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel13))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(cmbxFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNovoForn))
-                    .addComponent(jScrollPane1))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEstoqueMin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQActual, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEstoqueMax, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel13)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(cmbxFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNovoForn))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtQActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEstoqueMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtEstoqueMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEstoqueMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEstoqueMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -450,7 +442,7 @@ public class RegistoProdutoView extends javax.swing.JDialog {
                     .addComponent(jLabel13)
                     .addComponent(cmbxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovoForn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -536,12 +528,16 @@ public class RegistoProdutoView extends javax.swing.JDialog {
             }
         });
 
+        jLabel14.setText("<html><b><font color=red>* Campos Obrigatórios</font></b</html>");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -554,6 +550,10 @@ public class RegistoProdutoView extends javax.swing.JDialog {
                     .addComponent(jButton1)
                     .addComponent(btnGuardar))
                 .addGap(0, 9, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -563,12 +563,12 @@ public class RegistoProdutoView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -598,7 +598,8 @@ public class RegistoProdutoView extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNomeDescricaoKeyReleased
 
     private void txtNomeDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeDescricaoKeyTyped
-        // TODO add your handling code here:
+
+        Util.toUpperCase(evt);
     }//GEN-LAST:event_txtNomeDescricaoKeyTyped
 
     private void txtCodBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodBarrasActionPerformed
@@ -656,12 +657,6 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void txtEstoqueMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstoqueMinKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtObservacao.requestFocus();
-        }
-    }//GEN-LAST:event_txtEstoqueMinKeyReleased
-
     private void txtQActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQActualActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQActualActionPerformed
@@ -683,10 +678,6 @@ public class RegistoProdutoView extends javax.swing.JDialog {
             txtCodBarras.requestFocus();
         }
     }//GEN-LAST:event_txtObservacaoKeyReleased
-
-    private void txtEstoqueMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstoqueMaxKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstoqueMaxKeyReleased
 
     private void cmbxFornecedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbxFornecedorItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -807,7 +798,7 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         txtNomeDescricao.setText(p.getDescricao().toUpperCase());
         txtVCompra.setText(repor(p.getPrecoCompra() + ""));
         txtValorVenda.setText(repor(p.getPrecoVenda() + ""));
-        txtLucro.setText(repor((p.getPrecoVenda() - p.getPrecoCompra()) + ""));
+        lbLucro.setText(repor((p.getPrecoVenda() - p.getPrecoCompra()) + ""));
         txtEstoqueMin.setText(p.getQuantidadeMin() + "");
         cmbxCategoria.setSelectedItem(p.getCategoria().getDescricao());
         if (p.getFornecedor() != null)
@@ -826,7 +817,7 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         txtNomeDescricao.setText("");
         txtVCompra.setText(repor(p.getPrecoCompra() + ""));
         txtValorVenda.setText(repor(p.getPrecoVenda() + ""));
-        txtLucro.setText(repor((p.getPrecoVenda() - p.getPrecoCompra()) + ""));
+        lbLucro.setText(repor((p.getPrecoVenda() - p.getPrecoCompra()) + ""));
         txtEstoqueMin.setText(p.getQuantidadeMin() + "");
         cmbxCategoria.setSelectedItem(p.getCategoria().getDescricao());
         if (p.getFornecedor() != null)
@@ -848,7 +839,7 @@ public class RegistoProdutoView extends javax.swing.JDialog {
         txtNomeDescricao.setText(null);
         txtVCompra.setText(null);
         txtValorVenda.setText(null);
-        txtLucro.setText(null);
+        lbLucro.setText(null);
         txtEstoqueMin.setText(null);
         txtQActual.setText(null);
         txtObservacao.setText(null);
@@ -928,11 +919,11 @@ public class RegistoProdutoView extends javax.swing.JDialog {
                 double preco = Util.convertStringEmDouble(txtValorVenda.getText());
                 double custo = Util.convertStringEmDouble(txtVCompra.getText());
                 if (preco > custo) {
-                    txtLucro.setForeground(new Color(41, 127, 1));
-                    txtLucro.setText(((preco - custo) + "").replace(".", ","));
+                    lbLucro.setForeground(new Color(41, 127, 1));
+                    lbLucro.setText(((preco - custo) + "").replace(".", ","));
                 } else {
-                    txtLucro.setForeground(new Color(228, 9, 14));
-                    txtLucro.setText(((preco - custo) + "").replace(".", ","));
+                    lbLucro.setForeground(new Color(228, 9, 14));
+                    lbLucro.setText(((preco - custo) + "").replace(".", ","));
                 }
             }
         } catch (ParseException ex) {
@@ -945,10 +936,10 @@ public class RegistoProdutoView extends javax.swing.JDialog {
     private void validarCampos() {
         txtQActual.setDocument(new ValidarCampo(5));
         txtEstoqueMin.setDocument(new ValidarCampo(5));
-        txtNomeDescricao.setDocument(new ValidarNumeroString(35));
-        txtLucro.setDocument(new ValidarCampoDouble(10));
+        txtNomeDescricao.setDocument(new ValidarNumeroString(45));
         txtVCompra.setDocument(new ValidarCampoDouble(10));
         txtValorVenda.setDocument(new ValidarCampoDouble(10));
+        
     }
 
 
@@ -1035,10 +1026,10 @@ public class RegistoProdutoView extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXHyperlink jXHyperlink1;
     private org.jdesktop.swingx.JXHyperlink jXHyperlink2;
     private javax.swing.JLabel lbFoto;
+    private javax.swing.JLabel lbLucro;
     private javax.swing.JTextField txtCodBarras;
-    private org.jdesktop.swingx.JXTextField txtEstoqueMax;
-    private org.jdesktop.swingx.JXTextField txtEstoqueMin;
-    private javax.swing.JTextField txtLucro;
+    private javax.swing.JTextField txtEstoqueMax;
+    private javax.swing.JTextField txtEstoqueMin;
     private org.jdesktop.swingx.JXTextField txtNomeDescricao;
     private javax.swing.JTextArea txtObservacao;
     private javax.swing.JTextField txtQActual;
